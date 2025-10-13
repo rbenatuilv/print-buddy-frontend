@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
 import { useAuth } from "./context/AuthContext";
 
-import StartPage from "./views/StartPage";
+import LoginPage from "./views/LoginPage";
 import RegisterPage from "./views/RegisterPage";
 import MainPage from "./views/MainPage";
 
@@ -24,7 +24,7 @@ export default function AppRouter() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/login" element={<StartPage />} />
+                <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
                 <Route path="/" element={
                     <ProtectedRoute>

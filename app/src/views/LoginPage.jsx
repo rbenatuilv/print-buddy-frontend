@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 
 
-export default function StartPage() {
+export default function LoginPage() {
 
     const { login } = useAuth();
     const navigate = useNavigate();
