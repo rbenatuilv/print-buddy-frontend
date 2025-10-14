@@ -8,9 +8,9 @@ import MainPage from "./views/MainPage";
 
 
 const ProtectedRoute = ({ children }) => {
-    const { isLoggedIn } = useAuth();
+    const { statusLoggedIn } = useAuth();
 
-    if (!isLoggedIn) {
+    if (statusLoggedIn == "loggedOut") {
         return (
             <Navigate to="/login" replace />    
         )
