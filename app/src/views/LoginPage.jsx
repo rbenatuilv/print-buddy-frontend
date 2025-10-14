@@ -1,7 +1,8 @@
 import { Stack, Paper, Grid, Typography, TextField, Button, CircularProgress } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import { useUser } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 
@@ -9,6 +10,8 @@ import { useNavigate } from "react-router-dom";
 export default function LoginPage() {
 
     const { login } = useAuth();
+    const { resetUser } = useUser()
+
     const navigate = useNavigate();
 
     const [ username, setUsername ] = useState("");
@@ -23,7 +26,6 @@ export default function LoginPage() {
 
         const response = await login(username, password);
         if (response.success) {
-            alert("Successful login!");
             navigate("/");
         } else {
             setError(response.message);
@@ -31,6 +33,10 @@ export default function LoginPage() {
 
         setLoading(false);
     }
+
+    useEffect(() => {
+        resetUser()
+    })
 
     return (
 
