@@ -1,9 +1,10 @@
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Paper, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import { useMediaQuery } from "@mui/material";
 
 import TopBar from "./TopBar";
 import SideBar from "./SideBar";
+import ForceLoginModal from "./ForceLoginModal";
 
 
 export default function DashboardLayout({ children }) {
@@ -19,6 +20,8 @@ export default function DashboardLayout({ children }) {
     return (
         <Box sx={{ display: "flex" }}>
             
+            <ForceLoginModal />
+
             <TopBar onMenuClick={handleDrawerToggle} isDesktop={isDesktop} />
 
             <SideBar

@@ -3,14 +3,13 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useUser } from "../context/UserContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 
 
 export default function LoginPage() {
 
     const { login } = useAuth();
-    const { resetUser } = useUser()
 
     const navigate = useNavigate();
 
@@ -33,10 +32,6 @@ export default function LoginPage() {
 
         setLoading(false);
     }
-
-    useEffect(() => {
-        resetUser()
-    })
 
     return (
 

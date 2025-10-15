@@ -1,31 +1,22 @@
-import { useDebugValue, useEffect } from "react";
-import { Typography, Paper } from "@mui/material";
+import { Typography, Paper, Skeleton } from "@mui/material";
 
-
-import { useAuth } from "../context/AuthContext"
 import { useUser } from "../context/UserContext"
-import DashboardLayout from "../components/DashboardLayout";
+import LoadingTypography from "../components/LoadingTypography";
+
 
 
 export default function MainPage() {
     
-    const { user, refreshUserInfo } = useUser();
-    const { authExpired, logout } = useAuth();
-
-    useEffect(() => {
-        refreshUserInfo();
-    }, [])
+    const { user, isLoading, isError, lastUsername } = useUser();
 
     return ( 
-        <DashboardLayout>
-            <Paper sx={{ p: 3 }}>
-                <Typography variant="h5">
-                    Welcome, {user?.name}!
-                </Typography>
-                <Typography variant="h6" sx={{ mt: 1 }}>
-                    Current balance: € {user?.balance}
-                </Typography>
-            </Paper>
-        </DashboardLayout>
+        <Paper sx={{ p: 3 }}>
+            <LoadingTypography variant="h5" loadingWidth={200} isLoading={isLoading || isError}>
+                Welcome, {user?.name}!
+            </LoadingTypography>
+            <LoadingTypography variant="body1" loadingWidth={150} isLoading={isLoading || isError}>
+                Current balance: €{user?.balance}
+            </LoadingTypography>
+        </Paper>
     )
 }

@@ -1,7 +1,9 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
-import api from "../services/api";
 import { loginUser, registerUser } from "../api/auth";
+import { setAuthExpiredCallback } from "../services/api";
+
 
 const AuthContext = createContext(null);
 
@@ -9,6 +11,8 @@ const AuthContext = createContext(null);
 export function AuthProvider({ children }) {
     const [ statusLoggedIn, setStatusLoggedIn ] = useState("loading");
     const [ authExpired, setAuthExpired ] = useState(false);
+
+    const queryClient = useQueryClient();
 
     const login = async (username, password) => {
         const response = await loginUser({ username, password });
@@ -20,14 +24,17 @@ export function AuthProvider({ children }) {
             }
         }
 
-        localStorage.setItem("token", response.data.token);
+        sessionStorage.setItem("token", response.data.token);
+        await queryClient.invalidateQueries();
+
         setStatusLoggedIn("loggedIn");
+        setAuthExpired(false);
 
         return { success: true }
     }
 
-    const logout = () => {
-        localStorage.removeItem("token");
+    const logout = async () => {
+        sessionStorage.removeItem("token");
         setStatusLoggedIn("loggedOut");
     }
 
@@ -45,14 +52,15 @@ export function AuthProvider({ children }) {
             }
         }
 
-        localStorage.setItem("token", response.data.token);
+        sessionStorage.setItem("token", response.data.token);
+        setAuthExpired(false);
         setStatusLoggedIn("loggedIn");
 
         return { success: true }
     };
 
     useEffect(() => {
-        const storedToken = localStorage.getItem("token");
+        const storedToken = sessionStorage.getItem("token");
         if (storedToken) {
             setStatusLoggedIn("loggedIn")
         } else {
@@ -61,19 +69,9 @@ export function AuthProvider({ children }) {
     }, [])
 
     useEffect(() => {
-        const interceptor = api.interceptors.response.use(
-        (response) => response,
-        (error) => {
-            if (error.response?.status === 401) {
-            setAuthExpired(true);
-            }
-            return Promise.reject(error);
-        }
-        );
-
-        return () => api.interceptors.response.eject(interceptor);
+        setAuthExpiredCallback(() => setAuthExpired(true));
+        return () => setAuthExpiredCallback(null);
     }, []);
-
 
     return (
         <AuthContext.Provider value={{ 

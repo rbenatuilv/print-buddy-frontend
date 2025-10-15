@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AppBar, Toolbar, Typography, IconButton, Box, Tooltip, Avatar, Menu, MenuItem } from "@mui/material";
+import { AppBar, Toolbar, Typography, IconButton, Box, Tooltip, Avatar, Menu, MenuItem, CircularProgress } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from "@mui/icons-material/Logout";
 
@@ -9,7 +9,7 @@ import { useAuth } from "../context/AuthContext";
 
 export default function TopBar({ onMenuClick, isDesktop }) {
 
-    const { user } = useUser();
+    const { user, isLoading, isError } = useUser();
     const { logout } = useAuth()
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -50,7 +50,11 @@ export default function TopBar({ onMenuClick, isDesktop }) {
                     <Tooltip title="Account settings">
                         <IconButton onClick={handleMenuOpen} sx={{ p: 0 }}>
                             <Avatar sx={{ bgcolor: "secondary.main" }}>
-                                { user?.name[0]?.toUpperCase()  || "U" }
+                                { (isLoading || isError)? (
+                                    <CircularProgress color="inherit" size={20}/>
+                                    ) : (
+                                    user?.name[0]?.toUpperCase()  || "U"
+                                )}
                             </Avatar>
                         </IconButton>
                     </Tooltip>
@@ -63,7 +67,7 @@ export default function TopBar({ onMenuClick, isDesktop }) {
                         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                     >
                         <MenuItem disabled>
-                            { user?.name || "User" }
+                            { user?.username || "User" }
                         </MenuItem>
 
                         <MenuItem
