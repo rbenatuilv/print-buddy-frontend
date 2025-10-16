@@ -1,9 +1,11 @@
 import { Box, Paper, Step, StepLabel, Stepper } from '@mui/material';
 import { useState, useEffect } from 'react'
 
+import { usePrint } from '../../context/PrintContext'
 import StepUpload from './printSteps/StepUpload';
 import StepPrinter from './printSteps/StepPrinter';
 import StepPrintPrefs from './printSteps/StepPrintPrefs';
+import StepSend from './printSteps/StepSend';
 
 
 const steps = [
@@ -15,31 +17,24 @@ const steps = [
 
 
 export default function PrintWizard() {
-    const [ activeStepPrint, setActiveStepPrint ] = useState(() => {
-        const saved = sessionStorage.getItem("activeStepPrint");
-        return saved ? Number(saved) : 0;
-    });
+    const { activePrintStep, setActivePrintStep } = usePrint();
 
-    useEffect(() => {
-        sessionStorage.setItem("activeStepPrint", activeStepPrint);
-    }, [activeStepPrint]);
-
-    const next = () => setActiveStepPrint(a => Math.min(a + 1, steps.length - 1));
-    const prev = () => setActiveStepPrint(a => Math.max(a - 1, 0));
+    const next = () => setActivePrintStep(a => Math.min(a + 1, steps.length - 1));
+    const prev = () => setActivePrintStep(a => Math.max(a - 1, 0));
 
     return (
         <Paper sx={{ p: 2 }}>
-            <Stepper activeStep={activeStepPrint} alternativeLabel>
+            <Stepper activeStep={activePrintStep} alternativeLabel>
                 {steps.map(s => (
                     <Step key={s}><StepLabel>{s}</StepLabel></Step>
                 ))}
             </Stepper>
             
             <Box sx={{ mt: 3 }}>
-                {activeStepPrint == 0 && <StepUpload onNext={next}/>}
-                {activeStepPrint == 1 && <StepPrinter onPrev={prev} onNext={next}/>}
-                {activeStepPrint == 2 && <StepPrintPrefs onPrev={prev}/>}
-
+                {activePrintStep == 0 && <StepUpload onNext={next}/>}
+                {activePrintStep == 1 && <StepPrinter onPrev={prev} onNext={next}/>}
+                {activePrintStep == 2 && <StepPrintPrefs onPrev={prev} onNext={next}/>}
+                {activePrintStep == 3 && <StepSend onPrev={prev}/>}
             </Box>
 
         </Paper>

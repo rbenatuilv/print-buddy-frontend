@@ -1,9 +1,9 @@
 import { Typography, Skeleton } from "@mui/material";
 
 
-export default function LoadingTypography({ variant, loadingWidth, isLoading, children }) {
+export default function LoadingTypography({ color, variant, loadingWidth, isLoading, sx, children }) {
     return(
-        <Typography variant={variant}>
+        <Typography color={color} variant={variant} sx={sx}>
         {isLoading ? (
             <Skeleton width={loadingWidth} height="100%" animation="wave" />
         ) : (

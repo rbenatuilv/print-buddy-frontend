@@ -28,10 +28,16 @@ export function PrinterProvider({ children }) {
         setSelectedPrinter(printer)
     }
 
+    const resetState = () => {
+        setSelectedPrinter(null);
+        sessionStorage.removeItem("selectedPrinter");
+    }
+
     return (
         <PrinterContext.Provider value={{
             printers, isLoading, isError,
             selectPrinter, selectedPrinter,
+            resetState
         }}>
             { children }
         </PrinterContext.Provider>

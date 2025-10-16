@@ -11,6 +11,7 @@ import { usePrint } from "../../../context/PrintContext";
 
 import LoadingList from "../../utils/LoadingList";
 import FilesPrintOptions from "../FilesPrintOptions";
+import { useEffect } from "react";
 
 
 export default function StepPrintPrefs({ onNext, onPrev }) {
@@ -18,13 +19,13 @@ export default function StepPrintPrefs({ onNext, onPrev }) {
     
     const {
         printerOptionsByFile, setPreferencesByFile, 
-        validByFile, setFileValid
+        validByFile, setFileValid, initialOptions
     } = usePrint()
 
     const { files, selectedIds, isLoading } = useFile();
 
     const selectedFiles = files?.filter(f => selectedIds.includes(f.id)) || [];
-    const allValid = selectedFiles.every(f => validByFile[f.id]);
+    const allValid = selectedFiles.every(f => !validByFile.hasOwnProperty(f.id) || validByFile[f.id]);
 
     const handleBack = () => {
         onPrev?.();
@@ -33,6 +34,10 @@ export default function StepPrintPrefs({ onNext, onPrev }) {
     const handleNext = () => {
         onNext?.();
     }
+
+    useEffect(() => {
+        initialOptions(selectedIds);
+    }, [])
 
     return (
         <Box sx={{ 

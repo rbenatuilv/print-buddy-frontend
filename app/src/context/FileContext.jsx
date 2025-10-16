@@ -47,10 +47,16 @@ export function FileProvider({ children }){
         await uploadFileMutation.mutateAsync(file)
     }
 
+    const resetState = () => {
+        setSelectedIds([]);
+        sessionStorage.removeItem("selectedIds")
+    }
+
 
     return (
         <FileContext.Provider value={{
-            files, isLoading, isError, isFetching, selectedIds, toggleFile, uploadLocalFile
+            files, isLoading, isError, isFetching, selectedIds, 
+            toggleFile, uploadLocalFile, resetState
         }} >
             { children }
         </FileContext.Provider>

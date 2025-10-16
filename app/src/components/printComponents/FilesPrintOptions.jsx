@@ -32,7 +32,12 @@ export default function FilesPrintOptions({ files, optionsByFile, onChange, colo
             </AccordionSummary>
             <AccordionDetails>
                 <PrintOptionsForm
-                    options={optionsByFile[file.id]}
+                    options={optionsByFile[file.id] ?? {
+                        colorMode: "B&W",
+                        sides: "1S",
+                        copies: 1,
+                        pageRanges: ""
+                    }}
                     onChange={(newOpts) => onChange(file.id, newOpts)}
                     colorDisabled={!colorDisabled} // ejemplo si quieres bloquear color
                     totalPages={file.pages}

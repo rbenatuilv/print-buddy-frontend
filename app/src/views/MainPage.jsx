@@ -1,13 +1,32 @@
 import { Typography, Paper, Skeleton } from "@mui/material";
 
 import { useUser } from "../context/UserContext"
-import LoadingTypography from "../components/utils/LoadingTypography";
+import { usePrint } from "../context/PrintContext";
+import { usePrinter } from "../context/PrinterContext";
+import { useFile } from "../context/FileContext";
 
+import LoadingTypography from "../components/utils/LoadingTypography";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 
 export default function MainPage() {
     
     const { user, isLoading, isError, lastUsername } = useUser();
+    const { resetState: resetPrint } = usePrint();
+    const { resetState: resetPrinter } = usePrinter();
+    const { resetState: resetFile } = useFile();
+
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.pathname == "/") {
+            resetFile();
+            resetPrint();
+            resetPrinter();
+        }
+
+    }, [location.pathname])
 
     return ( 
         <Paper sx={{ p: 3 }}>

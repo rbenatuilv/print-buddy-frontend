@@ -1,9 +1,9 @@
 import { List, ListItem, ListItemText, Skeleton } from '@mui/material';
 
 
-export default function LoadingList({ count = 4 }) {
+export default function LoadingList({ count = 4, sx }) {
     return (
-        <List>
+        <List sx={sx}>
             {Array.from({ length: count }).map((_, idx) => (
                 <ListItem key={idx} disablePadding>
                     <ListItemText
