@@ -20,11 +20,7 @@ api.interceptors.request.use((config) => {
 let authExpiredCallback = null;
 
 export function setAuthExpiredCallback(cb) {
-    if (!cb) {
-        authExpiredCallback = () => console.log("HOLA AAA")
-    } else {
-        authExpiredCallback = cb;
-    }
+    authExpiredCallback = cb;
 }
 
 api.interceptors.response.use(

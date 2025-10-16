@@ -1,9 +1,9 @@
 import { Button, Stack, Typography, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 
-import CustomModal from "./CustomModal";
-import { useAuth } from "../context/AuthContext";
-import { useUser } from "../context/UserContext";
+import CustomModal from "../utils/CustomModal";
+import { useAuth } from "../../context/AuthContext";
+import { useUser } from "../../context/UserContext";
 
 
 export default function ForceLoginModal() {

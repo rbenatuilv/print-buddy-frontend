@@ -2,11 +2,12 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
 import { useAuth } from "./context/AuthContext";
 
-import DashboardLayout from "./components/DashboardLayout";
+import DashboardLayout from "./components/mainViewComponents/DashboardLayout";
 
 import LoginPage from "./views/LoginPage";
 import RegisterPage from "./views/RegisterPage";
 import MainPage from "./views/MainPage";
+import PrintPage from "./views/PrintPage";
 
 
 const ProtectedRoute = ({ children }) => {
@@ -36,6 +37,12 @@ export default function AppRouter() {
                 <Route path="/" element={
                     <ProtectedRoute>
                         <MainPage />
+                    </ProtectedRoute>
+                } />
+
+                <Route path="/print" element={
+                    <ProtectedRoute>
+                        <PrintPage />
                     </ProtectedRoute>
                 } />
 

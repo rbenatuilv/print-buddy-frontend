@@ -1,9 +1,7 @@
 import { Stack, Paper, Grid, Typography, TextField, Button, CircularProgress } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useUser } from "../context/UserContext";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 

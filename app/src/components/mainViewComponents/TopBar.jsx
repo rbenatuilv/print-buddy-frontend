@@ -3,8 +3,8 @@ import { AppBar, Toolbar, Typography, IconButton, Box, Tooltip, Avatar, Menu, Me
 import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from "@mui/icons-material/Logout";
 
-import { useUser } from "../context/UserContext";
-import { useAuth } from "../context/AuthContext";
+import { useUser } from "../../context/UserContext";
+import { useAuth } from "../../context/AuthContext";
 
 
 export default function TopBar({ onMenuClick, isDesktop }) {

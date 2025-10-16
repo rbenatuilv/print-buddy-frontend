@@ -1,7 +1,7 @@
 import { Typography, Paper, Skeleton } from "@mui/material";
 
 import { useUser } from "../context/UserContext"
-import LoadingTypography from "../components/LoadingTypography";
+import LoadingTypography from "../components/utils/LoadingTypography";
 
 
 
