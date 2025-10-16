@@ -23,3 +23,9 @@ export async function uploadFile(file) {
     return response.data
 
 }
+
+
+export async function deleteFile(fileId) {
+    const response = api.delete(`${FILE_ROUTE}/${fileId}`);
+    return response.data
+}

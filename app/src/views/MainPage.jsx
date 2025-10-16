@@ -13,21 +13,7 @@ import { useEffect } from "react";
 export default function MainPage() {
     
     const { user, isLoading, isError, lastUsername, refreshUser } = useUser();
-    const { resetState: resetPrint } = usePrint();
-    const { resetState: resetPrinter } = usePrinter();
-    const { resetState: resetFile } = useFile();
 
-    const location = useLocation();
-
-    useEffect(() => {
-        if (location.pathname == "/") {
-            resetFile();
-            resetPrint();
-            resetPrinter();
-            refreshUser();
-        }
-
-    }, [location.pathname])
 
     return ( 
         <Paper sx={{ p: 3 }}>

@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate, useLocation } from "react-router-dom";
 
 import { useAuth } from "./context/AuthContext";
 
@@ -8,10 +8,33 @@ import LoginPage from "./views/LoginPage";
 import RegisterPage from "./views/RegisterPage";
 import MainPage from "./views/MainPage";
 import PrintPage from "./views/PrintPage";
+import FilePage from "./views/FilePage";
+
+import { useEffect } from "react";
+import { usePrint } from "./context/PrintContext"; 
+import { usePrinter } from "./context/PrinterContext"; 
+import { useFile } from "./context/FileContext";
+import { useUser } from "./context/UserContext";
 
 
 const ProtectedRoute = ({ children }) => {
     const { statusLoggedIn } = useAuth();
+    const { refreshUser } = useUser();
+    const { resetState: resetPrint } = usePrint();
+    const { resetState: resetPrinter } = usePrinter();
+    const { resetState: resetFile } = useFile();
+
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.pathname != "/print") {
+            resetFile();
+            resetPrint();
+            resetPrinter();
+            refreshUser();
+        }
+
+    }, [location.pathname])
 
     if (statusLoggedIn == "loggedOut") {
         return (
@@ -28,6 +51,7 @@ const ProtectedRoute = ({ children }) => {
 
 
 export default function AppRouter() {
+
     return (
         <BrowserRouter>
             <Routes>
@@ -43,6 +67,12 @@ export default function AppRouter() {
                 <Route path="/print" element={
                     <ProtectedRoute>
                         <PrintPage />
+                    </ProtectedRoute>
+                } />
+
+                <Route path="/files" element={
+                    <ProtectedRoute>
+                        <FilePage />
                     </ProtectedRoute>
                 } />
 
