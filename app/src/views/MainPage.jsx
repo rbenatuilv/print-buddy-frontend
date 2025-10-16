@@ -12,7 +12,7 @@ import { useEffect } from "react";
 
 export default function MainPage() {
     
-    const { user, isLoading, isError, lastUsername } = useUser();
+    const { user, isLoading, isError, lastUsername, refreshUser } = useUser();
     const { resetState: resetPrint } = usePrint();
     const { resetState: resetPrinter } = usePrinter();
     const { resetState: resetFile } = useFile();
@@ -24,6 +24,7 @@ export default function MainPage() {
             resetFile();
             resetPrint();
             resetPrinter();
+            refreshUser();
         }
 
     }, [location.pathname])
@@ -34,7 +35,7 @@ export default function MainPage() {
                 Welcome, {user?.name}!
             </LoadingTypography>
             <LoadingTypography variant="body1" loadingWidth={150} isLoading={isLoading || isError}>
-                Current balance: €{user?.balance}
+                Current balance: €{user?.balance.toFixed(2)}
             </LoadingTypography>
         </Paper>
     )
