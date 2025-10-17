@@ -7,7 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { usePrint } from "../context/PrintContext";
 import { useFile } from "../context/FileContext";
 import LoadingList from "../components/utils/LoadingList";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useSnackbar } from "notistack";
 import { useNavigate } from "react-router-dom";
 
@@ -25,6 +25,12 @@ export default function FilePage() {
     const navigate = useNavigate();
 
     const [ selectedIds, setSelectedIds ] = useState([]);
+
+    const sortedFiles = useMemo(() => {
+        return [...(files || [])].sort((a, b) => 
+        new Date(b.uploaded_at) - new Date(a.uploaded_at)
+        );
+    }, [files]);
     
     const toggleFile = (id) => {
         setSelectedIds(prev => {
@@ -71,7 +77,7 @@ export default function FilePage() {
             </Typography>
 
             <Typography variant="body1">
-                Recent uploaded files
+                Recently uploaded files
             </Typography>
 
             <Box
@@ -84,10 +90,16 @@ export default function FilePage() {
             >
                 {isLoading ? (
                     <LoadingList />
+                ) : (!files || files?.length == 0) ? (
+                    <List>
+                        <ListItem>
+                            <ListItemText primary="No files uploaded yet." />
+                        </ListItem>
+                    </List>
                 ) : (
                     <List>
-                        {files?.map(f => (
-                            <ListItem ky={f.id} disablePadding>
+                        {sortedFiles?.map(f => (
+                            <ListItem key={f.id} disablePadding>
                                 <ListItemButton
                                     selected={selectedIds.includes(f.id)}
                                     onClick={() => toggleFile(f.id)}

@@ -19,7 +19,7 @@ export default function SideBar({ open, onClose, isDesktop, width }) {
         { text: "My files", icon: <DescriptionIcon />, path: "/files" },
         { text: "Print", icon: <PrintIcon />, path: "/print" },
         { text: "Print history", icon: <HistoryIcon />, path: "/history"},
-        { text: "Balance top-up", icon: <AccountBalanceWalletIcon />, path: "/balance" },
+        { text: "My balance", icon: <AccountBalanceWalletIcon />, path: "/balance" },
     ];
 
     const drawerContent = (

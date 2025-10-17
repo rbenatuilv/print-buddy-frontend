@@ -9,6 +9,7 @@ import RegisterPage from "./views/RegisterPage";
 import MainPage from "./views/MainPage";
 import PrintPage from "./views/PrintPage";
 import FilePage from "./views/FilePage";
+import HistoryPage from "./views/HistoryPage";
 
 import { useEffect } from "react";
 import { usePrint } from "./context/PrintContext"; 
@@ -73,6 +74,12 @@ export default function AppRouter() {
                 <Route path="/files" element={
                     <ProtectedRoute>
                         <FilePage />
+                    </ProtectedRoute>
+                } />
+
+                <Route path="/history" element={
+                    <ProtectedRoute>
+                        <HistoryPage />
                     </ProtectedRoute>
                 } />
 

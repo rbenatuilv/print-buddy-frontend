@@ -33,4 +33,16 @@ api.interceptors.response.use(
     }
 );
 
+
+api.interceptors.response.use(
+    res => res,
+    err => {
+        if (!err.response && err.request) {
+            if (typeof authExpiredCallback === 'function') authExpiredCallback();
+        }
+        return Promise.reject(err);
+    }
+);
+
+
 export default api;

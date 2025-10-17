@@ -17,8 +17,6 @@ export function FileProvider({ children }){
 
     const { data: files, isLoading, isError, isFetching } = queryFiles;
 
-    
-
     const [selectedIds, setSelectedIds] = useState(() => {
         const saved = sessionStorage.getItem("selectedIds");
         return saved ? JSON.parse(saved) : [];

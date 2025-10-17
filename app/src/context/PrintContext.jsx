@@ -1,6 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
+import { getMyJobs } from '../api/print'
+
 
 const PrintContext = createContext(null)
 
@@ -70,6 +72,20 @@ export function PrintProvider({ children }) {
         sessionStorage.setItem("validByFile", JSON.stringify(newValid));
     }
 
+    // Register my jobs
+    const queryJobs = useQuery({
+        queryKey: ['jobs'],
+        queryFn: getMyJobs,
+        staleTime: 1000 * 60 * 5,
+        retry: false
+    })
+
+    const { data: jobs, isLoading, isError } = queryJobs;
+
+    const queryClient = useQueryClient();
+    const refreshJobs = async () => await queryClient.invalidateQueries(['jobs']);
+
+
     // Reset Function
     const resetState = () => {
         setActivePrintStep(0);
@@ -86,6 +102,7 @@ export function PrintProvider({ children }) {
             printerOptionsByFile, setPreferencesByFile, 
             validByFile, setFileValid, initialOptions,
             activePrintStep, setActivePrintStep,
+            jobs, isLoading, isError, refreshJobs,
             resetState
         }}>
             { children }

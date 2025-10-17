@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Box, Button, List, ListItem, ListItemText, ListItemButton, Stack, Typography, ListItemIcon } from '@mui/material';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
@@ -17,6 +17,13 @@ export default function StepUpload({ onNext }) {
     } = useFile();
 
     const [ isFetching, setIsFetching ] = useState(false);
+
+    const sortedFiles = useMemo(() => {
+        return [...(files || [])].sort((a, b) => 
+        new Date(b.uploaded_at) - new Date(a.uploaded_at)
+        );
+    }, [files]);
+
 
     const handleUpload = async (e) => {
         const fileList = e.target.files;
@@ -85,7 +92,7 @@ export default function StepUpload({ onNext }) {
                 </List>
             ) : (
                 <List>
-                    {files?.map(f => (
+                    {sortedFiles?.map(f => (
                         <ListItem key={f.id} disablePadding>
                             <ListItemButton 
                                 selected={selectedIds.includes(f.id)} 

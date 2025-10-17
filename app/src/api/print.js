@@ -4,6 +4,12 @@ import api from "../services/api"
 const PRINT_ROUTE = "/print"
 
 
+export async function getMyJobs() {
+    const response = await api.get(`${PRINT_ROUTE}/my-jobs`);
+    return response.data;
+}
+
+
 export async function print(
     printerName, fileId, options
 ) {
