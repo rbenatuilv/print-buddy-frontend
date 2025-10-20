@@ -8,3 +8,9 @@ export async function getMyTransactions() {
     const response = await api.get(`${TX_ROUTE}/me`)
     return response.data;
 }
+
+
+export async function getRechargeInfo() {
+    const response = await api.get(`${TX_ROUTE}/recharge-info`)
+    return response.data;
+}

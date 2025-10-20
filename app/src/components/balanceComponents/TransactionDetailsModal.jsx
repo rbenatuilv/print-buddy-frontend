@@ -31,7 +31,7 @@ export default function TransactionDetailsModal({ transaction, onClose }) {
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                 {getIconForType(transaction.type)}
                 <Typography variant="body1" fontWeight="600">
-                {transaction.type.charAt(0).toUpperCase() + transaction.type.slice(1)}
+                {transaction.type.toUpperCase()}
                 </Typography>
             </Box>
 

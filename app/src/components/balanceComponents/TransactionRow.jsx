@@ -36,7 +36,7 @@ export default function TransactionRow({ tx, isMobile, onClick }) {
                 {getIconForType(tx.type)}
                 </Box>
             </TableCell>
-            <TableCell>{tx.type.charAt(0).toUpperCase() + tx.type.slice(1)}</TableCell>
+            <TableCell>{tx.type.toUpperCase()}</TableCell>
             <TableCell align="right" sx={{ fontWeight: 600 }}>
                 <Typography
                 color={tx.amount > 0 ? "success.main" : "error.main"}
@@ -52,7 +52,7 @@ export default function TransactionRow({ tx, isMobile, onClick }) {
             <TableCell>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                 {getIconForType(tx.type)}
-                {tx.type.charAt(0).toUpperCase() + tx.type.slice(1)}
+                {tx.type.toUpperCase()}
                 </Box>
             </TableCell>
             <TableCell  sx={{ fontWeight: 600 }}>

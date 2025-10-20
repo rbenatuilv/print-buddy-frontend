@@ -10,3 +10,14 @@ export async function getMe() {
     sessionStorage.setItem("lastUsername", response.data.username);
     return response.data;
 }
+
+
+export async function updatePwd(current_pwd, new_pwd) {
+    const response = await api.patch(`${USER_ROUTE}/change-password`,
+        {
+            current_pwd, new_pwd
+        }
+    )
+
+    return response.data;
+}

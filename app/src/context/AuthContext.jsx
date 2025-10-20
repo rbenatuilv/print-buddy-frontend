@@ -53,6 +53,8 @@ export function AuthProvider({ children }) {
         }
 
         sessionStorage.setItem("token", response.data.token);
+        await queryClient.invalidateQueries();
+        
         setAuthExpired(false);
         setStatusLoggedIn("loggedIn");
 
