@@ -64,6 +64,9 @@ export default function TransactionRow({ tx, isMobile, onClick }) {
                 {tx.amount.toFixed(2)}
                 </Typography>
             </TableCell>
+            <TableCell>
+                {tx.note || "-"}
+            </TableCell>
             <TableCell align="right">
                 <Typography color="primary.main">
                     <strong>{tx.balance_after.toFixed(2)}</strong>

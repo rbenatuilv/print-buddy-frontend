@@ -26,7 +26,7 @@ export default function TransactionsTable({ transactions, isLoading }) {
     const sortedTransactions = useMemo(() => {
         return [...(transactions || [])].sort(
         (a, b) => new Date(b.created_at) - new Date(a.created_at)
-        );
+        ).slice({end: 20});
     }, [transactions]);
 
     return (
@@ -35,7 +35,7 @@ export default function TransactionsTable({ transactions, isLoading }) {
             component={Paper}
             sx={{
             mt: 2,
-            maxHeight: "calc(80vh - 200px)",
+            maxHeight: "calc(70vh - 200px)",
             overflowY: "auto",
             }}
         >
@@ -45,6 +45,7 @@ export default function TransactionsTable({ transactions, isLoading }) {
                 <TableRow>
                     <TableCell>Type</TableCell>
                     <TableCell>Amount(€)</TableCell>
+                    <TableCell>Details</TableCell>
                     <TableCell align="right">Balance after (€)</TableCell>
                     <TableCell align="right">Date</TableCell>
                 </TableRow>
@@ -56,7 +57,7 @@ export default function TransactionsTable({ transactions, isLoading }) {
                 skeletonRows.map((_, i) => <SkeletonRow key={i} isMobile={isMobile} />)
                 ) : transactions?.length === 0 ? (
                 <TableRow>
-                    <TableCell colSpan={4} align="center">
+                    <TableCell colSpan={5} align="center">
                     <Typography variant="body2" color="text.secondary">
                         No transactions found
                     </Typography>

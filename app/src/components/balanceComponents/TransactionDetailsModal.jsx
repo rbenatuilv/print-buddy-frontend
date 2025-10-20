@@ -42,6 +42,11 @@ export default function TransactionDetailsModal({ transaction, onClose }) {
             </Typography>
 
             <Typography>
+                <strong>Details:</strong>{" "}
+                {transaction.note || ""}
+            </Typography>
+
+            <Typography>
                 <strong>Balance after:</strong> €{transaction.balance_after.toFixed(2) || "—"}
             </Typography>
 

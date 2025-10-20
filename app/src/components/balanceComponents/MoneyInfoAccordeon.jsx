@@ -6,7 +6,8 @@ import {
     CircularProgress,
     Stack,
     Paper,
-    Typography
+    Typography,
+    Link
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useQuery } from "@tanstack/react-query";
@@ -76,6 +77,14 @@ export default function MoneyInfoAccordion() {
                             <Box sx={{ ml: 2 }}>
                                 <Typography>Name: {data?.bank.name}</Typography>
                                 <Typography>IBAN: {data?.bank.iban}</Typography>
+                                {data?.bank.link && (
+                                    <Typography>
+                                        Link:{" "}
+                                        <Link href={data.bank.link} target="_blank" rel="noopener noreferrer">
+                                        {data.bank.link}
+                                        </Link>
+                                    </Typography>
+                                )}
                             </Box>
 
                             <Typography variant="body2" sx={{ mt: 2 }}>
