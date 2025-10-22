@@ -60,6 +60,8 @@ export function AuthProvider({ children }) {
                 message: responseLogin.message
             }
         }
+
+        return { success: true };
     };
 
     useEffect(() => {
