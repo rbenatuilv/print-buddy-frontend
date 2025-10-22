@@ -1,4 +1,4 @@
-import { Stack, Paper, Grid, Typography, TextField, Button, CircularProgress } from "@mui/material";
+import { Stack, Paper, Grid, Typography, TextField, Button, CircularProgress, Box } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
@@ -44,7 +44,22 @@ export default function LoginPage() {
             width: { xs: "80%", sm: "60%", md: 400 },
             maxWidth: "100%"
         }}>
-            <Paper elevation={3}>
+
+            <Box textAlign="center">
+                <img
+                    src="/printbuddy.png"
+                    alt="PrintBuddy logo"
+                    style={{ width: 80, height: 80, marginBottom: 8 }}
+                />
+                <Typography variant="h5" fontWeight="600">
+                    PrintBuddy
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                    Smart printing management
+                </Typography>
+            </Box>
+
+            <Paper elevation={3} sx={{ mt: 3 }}>
             <Stack spacing={2} p={4} component="form">
                 <Typography variant="h5" align="center">
                 Sign In
