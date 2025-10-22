@@ -32,7 +32,6 @@ export default function RegisterPage() {
         const response = await register({ username, email, password, name, surname });
 
         if (response.success) {
-            alert("Registration successful!");
             navigate("/");
         } else {
             setError(response.message || "Registration failed");
