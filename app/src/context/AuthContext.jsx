@@ -52,7 +52,16 @@ export function AuthProvider({ children }) {
             }
         }
 
-        sessionStorage.setItem("token", response.data.token);
+        const responseLogin = await login(username, password);
+
+        if (!responseLogin.success) {
+            return {
+                success: false,
+                message: responseLogin.message
+            }
+        }
+
+        sessionStorage.setItem("token", responseLogin.data.token);
         await queryClient.invalidateQueries();
         
         setAuthExpired(false);
