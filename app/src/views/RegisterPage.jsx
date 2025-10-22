@@ -46,7 +46,7 @@ export default function RegisterPage() {
             container
             justifyContent="center"
             alignItems="center"
-            sx={{ minHeight: "100vh" }}
+            sx={{ minHeight: "100dvh" }}
         >
         <Grid
             sx={{

@@ -38,7 +38,7 @@ export default function LoginPage() {
         container
         justifyContent="center"
         alignItems="center"
-        style={{ minHeight: "100vh"}}
+        style={{ minHeight: "100dvh"}}
     >
         <Grid sx={{ 
             width: { xs: "80%", sm: "60%", md: 400 },
