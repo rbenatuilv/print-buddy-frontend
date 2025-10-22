@@ -60,14 +60,6 @@ export function AuthProvider({ children }) {
                 message: responseLogin.message
             }
         }
-
-        sessionStorage.setItem("token", responseLogin.data.token);
-        await queryClient.invalidateQueries();
-        
-        setAuthExpired(false);
-        setStatusLoggedIn("loggedIn");
-
-        return { success: true }
     };
 
     useEffect(() => {
