@@ -1,8 +1,11 @@
-import { Stack, Paper, Grid, Typography, TextField, Button, CircularProgress, Box } from "@mui/material";
+import { Stack, Paper, Grid, Typography, TextField, Button, CircularProgress, Box, IconButton } from "@mui/material";
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+
+import CustomModal from "../components/utils/CustomModal";
 
 
 
@@ -16,6 +19,7 @@ export default function LoginPage() {
     const [ password, setPassword ] = useState("");
     const [ loading, setLoading ] = useState(false);
     const [ error, setError ] = useState("");
+    const [ helpOpen, setHelpOpen ] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -59,7 +63,18 @@ export default function LoginPage() {
                 </Typography>
             </Box>
 
-            <Paper elevation={3} sx={{ mt: 3 }}>
+            <Paper elevation={3} sx={{ mt: 3, position: "relative" }}>
+
+            <IconButton
+                size="small"
+                color="primary"
+                sx={{ position: "absolute", top: 8, right: 8 }}
+                onClick={() => setHelpOpen(true)}
+            >
+                <HelpOutlineIcon />
+            </IconButton>
+
+
             <Stack spacing={2} p={4} component="form">
                 <Typography variant="h5" align="center">
                 Sign In
@@ -103,6 +118,24 @@ export default function LoginPage() {
                 </Typography>
             </Stack>
             </Paper>
+
+            <CustomModal
+                open={helpOpen}
+                onClose={() => setHelpOpen(false)}
+                title="Help"
+                content={
+                    <Box display="flex" flexDirection="column" gap={2}>
+                        <Typography variant="body1">
+                            If you have any problem with the app, please contact:
+                        </Typography>
+                        <Box>
+                            <Typography variant="body1">Name: {import.meta.env.VITE_CONTACT_NAME}</Typography>
+                            <Typography variant="body1">Phone: {import.meta.env.VITE_CONTACT_NUMBER}</Typography>
+                        </Box>
+                    </Box>
+                }
+            />
+
         </Grid>
     </Grid>
     )
