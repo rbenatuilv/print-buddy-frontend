@@ -77,11 +77,11 @@ export default function StepSend({ onPrev }) {
             setIsPrinting(false);
 
             for (const key in printStatus) {
-                const status = printStatus[key];
+                const status = printStatus[key].status;
                 if (status) {
                     enqueueSnackbar(`File ${filesMap[key].filename} queued`, { variant: "success" })
                 } else {
-                    enqueueSnackbar(`Could not print ${filesMap[key].filename}`, { variant: "error" })
+                    enqueueSnackbar(`Could not print ${filesMap[key].filename}. Try again later.`, { variant: "error" })
                 }
             }
             
