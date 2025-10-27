@@ -33,9 +33,15 @@ export default function StepPrinter({ onNext, onPrev }) {
                     mb: 2
                 }}
             >
-                <Typography variant="h6">
-                    Select Printer
-                </Typography>
+                <Box>
+                    <Typography variant="h6">
+                        Select Printer
+                    </Typography>
+                    <Typography variant="body1">
+                        Click on the printer you want to print on.
+                    </Typography>
+                </Box>
+                
             </Stack>
 
             <Box

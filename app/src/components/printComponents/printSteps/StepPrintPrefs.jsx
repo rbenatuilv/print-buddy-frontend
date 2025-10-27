@@ -51,9 +51,14 @@ export default function StepPrintPrefs({ onNext, onPrev }) {
                     mb: 0
                 }}
             >
+                <Box>
                 <Typography variant="h6">
                     Select printing preferences 
                 </Typography>
+                <Typography variant="body1">
+                    Click on the files and set the printing options.
+                </Typography>
+                </Box>
                 
             </Stack>
 

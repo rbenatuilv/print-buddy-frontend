@@ -56,10 +56,15 @@ export default function StepUpload({ onNext }) {
                 sx={{
                     mb: 2
                 }}
-            >
+            >   
+                <Box>
                 <Typography variant="h6">
                     Select Files {selectedIds.length > 0 && `(${selectedIds.length})`}
                 </Typography>
+                <Typography variant="body1">
+                    Click on the files you want to print.
+                </Typography>
+                </Box>
                 <Button 
                     variant="contained"
                     startIcon={<UploadFileIcon />}
