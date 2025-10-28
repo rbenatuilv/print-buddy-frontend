@@ -1,39 +1,38 @@
-# Stage 1: build
+# ---------- Stage 1: build ----------
 FROM node:20-alpine AS builder
 
 WORKDIR /app
 
+# Variables del build (para Vite)
 ARG VITE_API_BASE_URL
-ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
-
 ARG VITE_CONTACT_NAME
-ENV VITE_CONTACT_NAME=$VITE_CONTACT_NAME
-
 ARG VITE_CONTACT_NUMBER
+
+ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
+ENV VITE_CONTACT_NAME=$VITE_CONTACT_NAME
 ENV VITE_CONTACT_NUMBER=$VITE_CONTACT_NUMBER
 
-# Copiar package.json y package-lock.json
+# Instalar dependencias y compilar
 COPY package*.json ./
-
-# Instalar dependencias
 RUN npm ci
-
-# Copiar todo el código
 COPY . .
-
-# Construir la app
 RUN npm run build
 
-# Stage 2: serve with nginx
+
+# ---------- Stage 2: Nginx ----------
 FROM nginx:stable-alpine
 
-# Copiar la build del frontend al contenedor de nginx
+# Instalamos envsubst (parte de gettext)
+RUN apk add --no-cache gettext
+
+# Copiar el frontend compilado
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Copiar configuración de nginx
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copiar la plantilla del archivo de configuración
+COPY nginx.conf.template /etc/nginx/templates/default.conf.template
 
-# Exponer puerto 80
+# Exponer el puerto HTTP
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+# Usamos envsubst para reemplazar variables al inicio
+CMD ["/bin/sh", "-c", "envsubst < /etc/nginx/templates/default.conf.template > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"]
