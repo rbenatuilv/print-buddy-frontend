@@ -157,7 +157,7 @@ export default function StepSend({ onPrev }) {
                             
                     <LoadingTypography 
                         variant="h6" 
-                        color={user?.balance >= totalCost ? "primary" : "error"} 
+                        color={user?.balance + user?.credit_limit >= totalCost ? "primary" : "error"} 
                         sx={{ fontWeight: "bold" }}
                         loadingWidth={50}
                         isLoading={isLoadingFiles}
@@ -166,7 +166,7 @@ export default function StepSend({ onPrev }) {
                     </LoadingTypography>
             </Box>
 
-                {(user?.balance < totalCost) && (
+                {(user?.balance + user?.credit_limit < totalCost) && (
                     <Typography variant="body2" color="error">
                         Insufficient credit!
                     </Typography>
@@ -186,7 +186,7 @@ export default function StepSend({ onPrev }) {
                     variant="contained" 
                     onClick={handlePrint} 
                     startIcon={<PrintIcon />} 
-                    disabled={user?.balance < totalCost}
+                    disabled={user?.balance + user?.credit_limit < totalCost}
                 >
                     Print
                 </Button>
