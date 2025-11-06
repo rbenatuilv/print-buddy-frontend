@@ -31,7 +31,7 @@ export async function print(
     }
 
     const printerOptions = {
-        copies: options.copies,
+        copies: String(options.copies),
         sides: sides,
         page_ranges: options.pageRanges || "all",
         color: options.color == "Color"
