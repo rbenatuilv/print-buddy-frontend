@@ -14,8 +14,6 @@ export async function print(
     printerName, fileId, options
 ) {
 
-    console.log(options);
-
     let sides = "";
     switch (options.sides) {
         case "1S":
@@ -36,9 +34,6 @@ export async function print(
         page_ranges: options.pageRanges || "all",
         color: options.color == "Color"
     }
-
-    console.log("Sending print request with options:");
-    console.log(printerOptions);
 
     const response = await api.post(`${PRINT_ROUTE}/${printerName}/${fileId}`,
         printerOptions
