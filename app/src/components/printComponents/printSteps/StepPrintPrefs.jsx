@@ -53,7 +53,7 @@ export default function StepPrintPrefs({ onNext, onPrev }) {
             >
                 <Box>
                 <Typography variant="h6">
-                    Select printing preferences 
+                    Select printing options 
                 </Typography>
                 <Typography variant="body1">
                     Click on the files and set the printing options.
@@ -66,11 +66,6 @@ export default function StepPrintPrefs({ onNext, onPrev }) {
                 width: '100%',
                 p: 2
                 }}>
-                <Typography 
-                    sx={{ mb: 2 }}
-                variant="body1">
-                    Select the preferences for each file:
-                </Typography>
 
                 {isLoading ? (
                     <LoadingList count={3} />

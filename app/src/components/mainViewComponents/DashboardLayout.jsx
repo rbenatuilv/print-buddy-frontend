@@ -18,7 +18,7 @@ export default function DashboardLayout({ children }) {
     }
 
     return (
-        <Box sx={{ display: "flex" }}>
+        <Box>
             
             <ForceLoginModal />
 
@@ -35,6 +35,7 @@ export default function DashboardLayout({ children }) {
                 component="main"
                 sx={{
                     flexGrow: 1,
+                    ml: isDesktop ? `${drawerWidth}px` : 0,
                     p: 3,
                     mt: 8
                 }}

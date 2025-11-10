@@ -32,7 +32,7 @@ export default function MainPage() {
     const recentJobs = sortedJobs?.slice(0, 5) || [];
 
     return (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 1 }}>
         <MainHeader user={user} isLoading={isLoading} isError={isError} />
 
         <Grid container spacing={2} sx={{ width: "100%" }}>

@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { ThemeProvider } from '@emotion/react';
 import { CssBaseline } from '@mui/material';
 
-import './index.css'
+
 import theme from './theme.js';
 
 import App from './App.jsx'
