@@ -65,19 +65,7 @@ export default function StepUpload({ onNext }) {
                     Click on the files you want to print.
                 </Typography>
                 </Box>
-                <Button 
-                    variant="contained"
-                    startIcon={<UploadFileIcon />}
-                    component="label"
-                >
-                    Upload
-                    <input 
-                        hidden
-                        type="file"
-                        multiple
-                        onChange={handleUpload}
-                    />
-                </Button>
+
             </Stack>
             
             <Box
@@ -126,7 +114,21 @@ export default function StepUpload({ onNext }) {
             )}
             </Box>
 
-            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                <Button 
+                    variant="outlined"
+                    color="secondary"
+                    startIcon={<UploadFileIcon />}
+                    component="label"
+                >
+                    Upload
+                    <input 
+                        hidden
+                        type="file"
+                        multiple
+                        onChange={handleUpload}
+                    />
+                </Button>
                 <Button 
                     variant="contained" 
                     onClick={handleNext} 
