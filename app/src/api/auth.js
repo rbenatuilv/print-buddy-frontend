@@ -88,3 +88,76 @@ export async function registerUser({
 
     return answer;
 }
+
+
+export async function requestPwdReset({ email }) {
+    
+    const answer = {
+        success: false,
+        message: "",
+    }
+    
+    try {
+        await api.post(`${AUTH_ROUTE}/pwd-reset-request`, {
+            email: email
+        })
+        answer.success = true;
+        
+    } catch (err) {
+        if (err.response) {
+            const code = err.response.status;
+            
+            if (code == 404) {
+                answer.message = "User not found!";
+            } else if (code < 500) {
+                answer.message = "Invalid request!";
+            } else {
+                answer.message = "Server error, try again later.";
+            }
+        } else if (err.request) {
+            answer.message = "Unable to connect to server."
+        } else {
+            answer.message = err.message;
+        }
+    }
+
+    return answer;
+}
+
+
+export async function resetPwd({ token, newPassword }) {
+    
+    const answer = {
+        success: false,
+        message: "",
+    }
+
+    try {
+        await api.post(`${AUTH_ROUTE}/pwd-reset/${token}`, {
+            new_pwd: newPassword
+        })
+
+        answer.success = true;
+    } catch (err) {
+        if (err.response) {
+            const code = err.response.status;
+
+            if (code == 404) {
+                answer.message = "User not found!";
+            } else if (code == 400) {
+                answer.message = "Invalid or expired link! Please request a new password reset.";
+            } else if (code < 500) {
+                answer.message = "Invalid request!";
+            } else {
+                answer.message = "Server error, try again later.";
+            }
+        } else if (err.request) {
+            answer.message = "Unable to connect to server."
+        } else {
+            answer.message = err.message;
+        }
+    }
+
+    return answer;
+}
+

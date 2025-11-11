@@ -11,6 +11,8 @@ import PrintPage from "./views/PrintPage";
 import FilePage from "./views/FilePage";
 import HistoryPage from "./views/HistoryPage";
 import BalancePage from "./views/BalancePage";
+import PwdResetPage from "./views/PwdResetPage";
+import PwdRequestPage from "./views/PwdRequestPage";
 
 
 import { useEffect } from "react";
@@ -60,6 +62,8 @@ export default function AppRouter() {
             <Routes>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
+                <Route path="/password-reset" element={<PwdResetPage />} />
+                <Route path="/pwd-reset-request" element={<PwdRequestPage />} />
 
                 <Route path="/" element={
                     <ProtectedRoute>

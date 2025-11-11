@@ -1,42 +1,43 @@
 import { Stack, Paper, Grid, Typography, TextField, Button, CircularProgress, Box, IconButton } from "@mui/material";
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+
+import { useAuth } from "../context/AuthContext";
 
 import CustomModal from "../components/utils/CustomModal";
 
 
-export default function LoginPage() {
-
-    const { login } = useAuth();
-
+export default function PwdRequestPage() {
     const navigate = useNavigate();
 
-    const [ username, setUsername ] = useState("");
-    const [ password, setPassword ] = useState("");
+    const [ helpOpen, setHelpOpen ] = useState(false);
+    const [ email, setEmail ] = useState("");
     const [ loading, setLoading ] = useState(false);
     const [ error, setError ] = useState("");
-    const [ helpOpen, setHelpOpen ] = useState(false);
+    const [ successMsg, setSuccessMsg ] = useState("");
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+
+    const { requestPasswordReset } = useAuth();
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
         setError("");
         setLoading(true);
 
-        const response = await login(username, password);
+        const response = await requestPasswordReset(email);
         if (response.success) {
-            navigate("/");
+            setSuccessMsg("Password reset link sent to your email.");
         } else {
             setError(response.message);
         }
 
         setLoading(false);
-    }
+    };
 
     return (
-
     <Grid
         container
         justifyContent="center"
@@ -47,7 +48,7 @@ export default function LoginPage() {
             width: { xs: "80%", sm: "60%", md: 400 },
             maxWidth: "100%"
         }}>
-
+            
             <Box textAlign="center">
                 <img
                     src="/printbuddy.png"
@@ -73,55 +74,52 @@ export default function LoginPage() {
                 <HelpOutlineIcon />
             </IconButton>
 
+            <IconButton
+                size="small"
+                color="primary"
+                sx={{ position: "absolute", top: 8, left: 8 }}
+                onClick={() => navigate(-1)}
+            >
+                <ArrowBackIcon />
+            </IconButton>
 
-            <Stack spacing={2} p={4} component="form">
-                <Typography variant="h5" align="center">
-                Sign In
+            <Stack spacing={2} p={4} component="form" onSubmit={handleSubmit}>
+
+                <Typography variant="h6" textAlign="center" marginBottom={2}>
+                    Password Reset
                 </Typography>
 
                 <TextField
-                    label="Username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    label="Email Address"
+                    type="email"
                     fullWidth
                     required
-                />
-
-                <TextField
-                    label="Password"
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    fullWidth
-                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
 
                 {error && (
-                <Typography color="error" variant="body2" align="center">
-                    {error}
-                </Typography>
+                    <Typography color="error" variant="body2" align="center">
+                        {error}
+                    </Typography>
+                )}
+
+                {successMsg && (
+                    <Typography color="primary" variant="body2" align="center">
+                        {successMsg}
+                    </Typography>
                 )}
 
                 <Button
-                    type="submit"
                     variant="contained"
+                    color="primary"
+                    type="submit"
                     fullWidth
-                    onClick={handleSubmit}
                     disabled={loading}
                 >
-                {loading ? <CircularProgress size={24} /> : "Submit"}
+                    {loading ? <CircularProgress size={24} /> : "Submit"}
                 </Button>
 
-                <Stack spacing={1}>
-                    <Typography variant="body2" align="center">
-                        Forgot your password? <Link to="/pwd-reset-request">Reset Password</Link>
-                    </Typography>
-                    <Typography variant="body2" align="center">
-                        Don't have an account? <Link to="/register">Sign up</Link>
-                    </Typography>
-
-                </Stack>
-                
             </Stack>
             </Paper>
 

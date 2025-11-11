@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
-import { loginUser, registerUser } from "../api/auth";
+import { loginUser, registerUser, resetPwd, requestPwdReset } from "../api/auth";
 import { setAuthExpiredCallback } from "../services/api";
 
 
@@ -64,6 +64,33 @@ export function AuthProvider({ children }) {
         return { success: true };
     };
 
+    const resetPassword = async (token, newPassword) => {
+        const response = await resetPwd({ token, newPassword });
+
+        if (!response.success) {
+            return {
+                success: false,
+                message: response.message
+            }
+        }
+
+        return { success: true };
+    };
+
+    const requestPasswordReset = async (email) => {
+        const response = await requestPwdReset({ email });
+        
+        if (!response.success) {
+            return {
+                success: false,
+                message: response.message
+            }
+        }
+
+        return { success: true };
+    };
+
+
     useEffect(() => {
         const storedToken = sessionStorage.getItem("token");
         if (storedToken) {
@@ -84,7 +111,9 @@ export function AuthProvider({ children }) {
             authExpired, 
             login, 
             logout, 
-            register 
+            register,
+            resetPassword,
+            requestPasswordReset
         }}>
             { children }
         </AuthContext.Provider>
