@@ -46,7 +46,8 @@ export function PrintProvider({ children }) {
                         colorMode: "B&W",
                         sides: "1S",
                         copies: 1,
-                        pageRanges: ""
+                        pageRanges: "",
+                        numberUp: 1
                     };
                     changed = true;
                 }

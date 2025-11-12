@@ -36,7 +36,8 @@ export default function FilesPrintOptions({ files, optionsByFile, onChange, colo
                         colorMode: "B&W",
                         sides: "1S",
                         copies: 1,
-                        pageRanges: ""
+                        pageRanges: "",
+                        numberUp: 1
                     }}
                     onChange={(newOpts) => onChange(file.id, newOpts)}
                     colorDisabled={!colorDisabled} // ejemplo si quieres bloquear color

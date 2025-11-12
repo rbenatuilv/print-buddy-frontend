@@ -32,7 +32,8 @@ export async function print(
         copies: String(options.copies),
         sides: sides,
         page_ranges: options.pageRanges || "all",
-        color: options.color == "Color"
+        color: options.color == "Color",
+        number_up: String(options.numberUp)
     }
 
     const response = await api.post(`${PRINT_ROUTE}/${printerName}/${fileId}`,

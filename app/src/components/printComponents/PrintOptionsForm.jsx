@@ -104,6 +104,22 @@ export default function PrintOptionsForm({ options, onChange, colorDisabled, tot
                 </Select>
             </FormControl>
 
+            <FormControl fullWidth>
+                <InputLabel>Pages per sheet</InputLabel>
+                <Select
+                    value={options?.numberUp || 1}
+                    label="Pages per sheet"
+                    onChange={(e) => handleChange("numberUp", e.target.value)}
+                >
+                    <MenuItem value={1}>1</MenuItem>
+                    <MenuItem value={2}>2</MenuItem>
+                    <MenuItem value={4}>4</MenuItem>
+                    <MenuItem value={6}>6</MenuItem>
+                    <MenuItem value={9}>9</MenuItem>
+                    <MenuItem value={16}>16</MenuItem>
+                </Select>
+            </FormControl>
+
             <TextField
                 label="Number of copies"
                 value={options?.copies || 1}
