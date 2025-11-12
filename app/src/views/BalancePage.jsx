@@ -55,7 +55,7 @@ export default function BalancePage() {
     };
 
     return (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 1 }}>
         <BalanceHeader
             user={user}
             isLoading={isLoadingUser || isErrorUser}
@@ -67,7 +67,7 @@ export default function BalancePage() {
         </Paper>
         
 
-        <Paper sx={{ p: 3, gap: 2, mt: 2 }}>
+        <Paper sx={{ p: 2.5, gap: 2, mt: 2 }}>
             <Typography variant="h5">Transaction History</Typography>
             <Typography variant="body1">Overview of recent balance changes.</Typography>
             <TransactionsTable transactions={txs} isLoading={isLoading} />
