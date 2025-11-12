@@ -16,12 +16,25 @@ export async function uploadFile(file) {
 
     formData.append('file', file);
 
-    const response = await api.post(`${FILE_ROUTE}`, formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
-    })
+    try {
+        const response = await api.post(`${FILE_ROUTE}`, formData, {
+            headers: { 'Content-Type': 'multipart/form-data' }
+        })
 
-    return response.data
-
+        return response.data
+    } catch (error) {
+        
+        if (error.response) {
+            const status = error.response.status;
+            if (status === 403) {
+                throw new Error(error.response.data.detail || "Error uploading file");
+            } else {
+                throw new Error("Error uploading file");
+            }
+        } else {
+            throw new Error("Network error, please try again later.");
+        }
+    }
 }
 
 
