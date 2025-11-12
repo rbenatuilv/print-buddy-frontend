@@ -11,6 +11,7 @@ import { updatePwd } from "../../api/user";
 import { getAppInfo } from "../../api/app";
 
 import CustomModal from "../utils/CustomModal";
+import LoadingTypography from "../utils/LoadingTypography";
 
 
 export default function TopBar({ onMenuClick, isDesktop }) {
@@ -27,6 +28,7 @@ export default function TopBar({ onMenuClick, isDesktop }) {
     const [ isSubmitting, setIsSubmitting ] = useState(false);
     const [ appName, setAppName ] = useState("PrintBuddy");
     const [ appVersion, setAppVersion ] = useState("0.1.0");
+    const [ loadingAppInfo, setLoadingAppInfo ] = useState(false);
 
     const [ current_pwd, setCurrentPwd ] = useState("");
     const [ new_pwd, setNewPwd ] = useState("");
@@ -73,12 +75,14 @@ export default function TopBar({ onMenuClick, isDesktop }) {
     useEffect(() => {
         const fetchAppInfo = async () => {
             try {
+                setLoadingAppInfo(true);
                 const info = await getAppInfo();
-                setAppName(info.name);
+                setAppName(info.app);
                 setAppVersion(info.version);
-            }
-            catch (err) {
-                // ignore error
+            } catch (err) {
+                console.error("Failed to fetch app info:", err);
+            } finally {
+                setLoadingAppInfo(false);
             }
         }
         
@@ -104,9 +108,15 @@ export default function TopBar({ onMenuClick, isDesktop }) {
                     </IconButton>
                 )}
 
-                <Typography variant="h6" noWrap>
+                <LoadingTypography
+                    variant="h6"
+                    noWrap
+                    isLoading={isLoading}
+                    loadingWidth={200}
+                >
                     { appName } v{ appVersion }
-                </Typography>
+                </LoadingTypography>
+
 
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                     <Tooltip title="Account settings">
