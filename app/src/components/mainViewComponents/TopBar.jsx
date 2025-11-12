@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AppBar, Toolbar, Typography, IconButton, Box, Tooltip, Avatar, Menu, MenuItem, CircularProgress, Stack, TextField, Button } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -8,6 +8,8 @@ import { useAuth } from "../../context/AuthContext";
 import { useSnackbar } from "notistack";
 
 import { updatePwd } from "../../api/user";
+import { getAppInfo } from "../../api/app";
+
 import CustomModal from "../utils/CustomModal";
 
 
@@ -23,6 +25,8 @@ export default function TopBar({ onMenuClick, isDesktop }) {
     const [ openModal, setOpenModal ] = useState(false);
     const [ errChangePwd, setErrChangePwd ] = useState("")
     const [ isSubmitting, setIsSubmitting ] = useState(false);
+    const [ appName, setAppName ] = useState("PrintBuddy");
+    const [ appVersion, setAppVersion ] = useState("0.1.0");
 
     const [ current_pwd, setCurrentPwd ] = useState("");
     const [ new_pwd, setNewPwd ] = useState("");
@@ -66,6 +70,21 @@ export default function TopBar({ onMenuClick, isDesktop }) {
         }
     }
 
+    useEffect(() => {
+        const fetchAppInfo = async () => {
+            try {
+                const info = await getAppInfo();
+                setAppName(info.name);
+                setAppVersion(info.version);
+            }
+            catch (err) {
+                // ignore error
+            }
+        }
+        
+        fetchAppInfo();
+    }, []);
+
     return (
         <AppBar
             position="fixed"
@@ -86,7 +105,7 @@ export default function TopBar({ onMenuClick, isDesktop }) {
                 )}
 
                 <Typography variant="h6" noWrap>
-                    PrintBuddy v.0.1.0
+                    { appName } v{ appVersion }
                 </Typography>
 
                 <Box sx={{ display: "flex", alignItems: "center" }}>

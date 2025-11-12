@@ -46,6 +46,12 @@ export default function RecentFilesCard({ files, isLoading, onViewAll }) {
                         <ListItemText
                         primary={f.filename}
                         secondary={`Pages: ${f.pages || "-"}, Size: ${f.size_bytes ? Math.round(f.size_bytes / 1024) : "-"} KB`}
+                        sx={{
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                        }}
+
                         />
 
                     </ListItem>

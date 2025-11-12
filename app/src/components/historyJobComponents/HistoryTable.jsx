@@ -67,11 +67,11 @@ export default function HistoryTable({ jobs, isLoading, renderStatusIcon }) {
                 ) : (
                 sortedJobs?.map((job) => (
                     <JobRow
-                    key={job.id}
-                    job={job}
-                    isMobile={isMobile}
-                    renderStatusIcon={renderStatusIcon}
-                    onClick={() => isMobile && setSelectedJob(job)}
+                        key={job.id}
+                        job={job}
+                        isMobile={isMobile}
+                        renderStatusIcon={renderStatusIcon}
+                        onClick={() => isMobile && setSelectedJob(job)}
                     />
                 ))
                 )}

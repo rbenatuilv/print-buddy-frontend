@@ -32,7 +32,7 @@ export default function TransactionRow({ tx, isMobile, onClick }) {
         {isMobile ? (
             <>
             <TableCell width={50}>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <Box sx={{ display: "flex", alignItems: "center"}}>
                 {getIconForType(tx.type)}
                 </Box>
             </TableCell>
@@ -64,7 +64,7 @@ export default function TransactionRow({ tx, isMobile, onClick }) {
                 {tx.amount.toFixed(2)}
                 </Typography>
             </TableCell>
-            <TableCell>
+            <TableCell sx={{ maxWidth: "20vw", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                 {tx.note || "-"}
             </TableCell>
             <TableCell align="right">

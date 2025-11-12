@@ -11,7 +11,7 @@ export default function DashboardLayout({ children }) {
     const [ mobileOpen, setMobileOpen ] = useState(false);
     const isDesktop = useMediaQuery("(min-width:900px)");
 
-    const drawerWidth = 240;
+    const drawerWidth = 220;
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);

@@ -6,6 +6,8 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 import { useFile } from '../../../context/FileContext'
+import { useSnackbar } from 'notistack';
+
 import LoadingList from '../../utils/LoadingList';
 
 
@@ -17,6 +19,7 @@ export default function StepUpload({ onNext }) {
     } = useFile();
 
     const [ isFetching, setIsFetching ] = useState(false);
+    const { enqueueSnackbar } = useSnackbar();
 
     const sortedFiles = useMemo(() => {
         return [...(files || [])].sort((a, b) => 
@@ -35,7 +38,12 @@ export default function StepUpload({ onNext }) {
         };
 
         for (let i = 0; i < fileList.length; i++) {
-            await uploadLocalFile(fileList[i]);
+            try {
+                await uploadLocalFile(fileList[i]);
+            } catch (error) {
+                const msg = error.message || "Error uploading file";
+                enqueueSnackbar(msg, { variant: "error" });
+            }
         }
 
         setIsFetching(false)

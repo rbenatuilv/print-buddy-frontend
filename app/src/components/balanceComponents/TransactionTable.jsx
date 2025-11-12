@@ -44,7 +44,7 @@ export default function TransactionsTable({ transactions, isLoading }) {
                 <TableHead>
                 <TableRow>
                     <TableCell>Type</TableCell>
-                    <TableCell>Amount(€)</TableCell>
+                    <TableCell>Amount (€)</TableCell>
                     <TableCell>Details</TableCell>
                     <TableCell align="right">Balance after (€)</TableCell>
                     <TableCell align="right">Date</TableCell>
