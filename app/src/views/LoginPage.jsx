@@ -82,7 +82,10 @@ export default function LoginPage() {
                 <TextField
                     label="Username"
                     value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    onChange={(e) => {
+                        // Strip spaces from username input
+                        setUsername(e.target.value.replace(/\s/g, ''));
+                    }}
                     fullWidth
                     required
                 />
